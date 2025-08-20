@@ -41,6 +41,10 @@ public class Post {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

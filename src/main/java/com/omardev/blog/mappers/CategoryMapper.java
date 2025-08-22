@@ -14,8 +14,6 @@ public interface CategoryMapper {
     @Mapping(target = "postCount", source = "posts", qualifiedByName = "countPublishedPosts")
     CategoryDto toDto(Category category);
 
-    List<CategoryDto> toDto(List<Category> categories);
-
     @Named("countPublishedPosts")
     default long countPublishedPosts(List<Post> posts) {
         if (posts == null) return 0;

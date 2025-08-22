@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/categories")
@@ -19,8 +20,11 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> listCategories() {
-        return ResponseEntity.ok(
-                categoryMapper.toDto(categoryService.listCategories())
-        );
+        List<CategoryDto> categoriesDtos = categoryService.listCategories()
+                .stream()
+                .map(categoryMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(categoriesDtos);
     }
 }

@@ -5,6 +5,7 @@ import com.omardev.blog.repositories.CategoryRepository;
 import com.omardev.blog.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,5 +18,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> listCategories() {
         return categoryRepository.findAllWithPosts();
+    }
+
+    @Override
+    @Transactional
+    public Category createCategory(Category category) {
+        // Check if category with same name already exists
+        if (categoryRepository.existsByName(category.getName())) {
+            throw new IllegalArgumentException("Category already exists with name: " + category.getName());
+        }
+        return categoryRepository.save(category);
     }
 }

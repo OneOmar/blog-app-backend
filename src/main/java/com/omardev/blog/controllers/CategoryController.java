@@ -1,9 +1,13 @@
 package com.omardev.blog.controllers;
 
 import com.omardev.blog.domain.dtos.CategoryDto;
+import com.omardev.blog.domain.dtos.CreateCategoryRequest;
+import com.omardev.blog.domain.entities.Category;
 import com.omardev.blog.mappers.CategoryMapper;
 import com.omardev.blog.services.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,4 +31,15 @@ public class CategoryController {
 
         return ResponseEntity.ok(categoriesDtos);
     }
+
+    @PostMapping
+    public ResponseEntity<CategoryDto> createCategory(
+            @Valid @RequestBody CreateCategoryRequest createCategoryRequest) {
+        Category category = categoryMapper.toEntity(createCategoryRequest);
+        Category savedCategory = categoryService.createCategory(category);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(categoryMapper.toDto(savedCategory));
+    }
+
 }

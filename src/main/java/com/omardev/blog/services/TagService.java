@@ -5,8 +5,10 @@ import com.omardev.blog.domain.entities.Tag;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public interface TagService {
     List<Tag> getAllTags();
     Set<Tag> createTags(CreateTagsRequest request);
+    void deleteTag(UUID id);
 }

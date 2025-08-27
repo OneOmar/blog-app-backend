@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,4 +57,16 @@ public class TagServiceImpl implements TagService {
         savedTags.addAll(existingTags);
         return savedTags;
     }
+
+    @Override
+    @Transactional
+    public void deleteTag(UUID id) {
+        tagRepository.findById(id).ifPresent(tag -> {
+            if (!tag.getPosts().isEmpty()) {
+                throw new IllegalStateException("Cannot delete tag with associated posts");
+            }
+            tagRepository.delete(tag);
+        });
+    }
+
 }

@@ -4,6 +4,7 @@ import com.omardev.blog.domain.dtos.CreateTagsRequest;
 import com.omardev.blog.domain.entities.Tag;
 import com.omardev.blog.repositories.TagRepository;
 import com.omardev.blog.services.TagService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,6 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional
     public Set<Tag> createTags(CreateTagsRequest request) {
-        // Requested names
         Set<String> requestedNames = request.getNames();
 
         // Fetch existing tags
@@ -40,12 +40,12 @@ public class TagServiceImpl implements TagService {
                 .map(Tag::getName)
                 .collect(Collectors.toSet());
 
-        // Determine which names are new
+        // Determine new names
         Set<String> newNames = requestedNames.stream()
                 .filter(name -> !existingNames.contains(name))
                 .collect(Collectors.toSet());
 
-        // Create Tag objects for new names
+        // Create new Tag entities
         Set<Tag> newTags = newNames.stream()
                 .map(name -> Tag.builder().name(name).build())
                 .collect(Collectors.toSet());
@@ -69,4 +69,12 @@ public class TagServiceImpl implements TagService {
         });
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Tag getTagById(UUID id) {
+        return tagRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Tag not found with id: %s", id)
+                ));
+    }
 }

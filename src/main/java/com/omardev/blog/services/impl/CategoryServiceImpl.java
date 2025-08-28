@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Category createCategory(Category category) {
-        // Check if category with same name already exists
+        // Check if category with the same name already exists
         if (categoryRepository.existsByName(category.getName())) {
             throw new IllegalArgumentException("Category already exists with name: " + category.getName());
         }
@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void deleteCategory(UUID id) {
-        Category category = findCategoryById(id);
+        Category category = getCategoryById(id);
 
         if (!category.getPosts().isEmpty()) {
             throw new IllegalStateException(
@@ -46,15 +46,11 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.delete(category);
     }
 
-    /**
-     * Helper method to fetch a category by ID or throw a 404.
-     */
-    private Category findCategoryById(UUID id) {
+    @Override
+    public Category getCategoryById(UUID id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Category not found with id: %s", id)
                 ));
     }
-
-
 }

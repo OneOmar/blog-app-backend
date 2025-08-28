@@ -4,6 +4,7 @@ import com.omardev.blog.domain.PostStatus;
 import com.omardev.blog.domain.entities.Category;
 import com.omardev.blog.domain.entities.Post;
 import com.omardev.blog.domain.entities.Tag;
+import com.omardev.blog.domain.entities.User;
 import com.omardev.blog.repositories.PostRepository;
 import com.omardev.blog.services.CategoryService;
 import com.omardev.blog.services.PostService;
@@ -53,4 +54,10 @@ public class PostServiceImpl implements PostService {
 
         return postRepository.findAllByStatus(PostStatus.PUBLISHED);
     }
+
+    @Override
+    public List<Post> getDraftPosts(User user) {
+        return postRepository.findAllByAuthorAndStatus(user, PostStatus.DRAFT);
+    }
+
 }

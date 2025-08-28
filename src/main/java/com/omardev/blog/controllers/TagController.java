@@ -1,7 +1,7 @@
 package com.omardev.blog.controllers;
 
 import com.omardev.blog.domain.dtos.CreateTagsRequest;
-import com.omardev.blog.domain.dtos.TagResponseDto;
+import com.omardev.blog.domain.dtos.TagDto;
 import com.omardev.blog.domain.entities.Tag;
 import com.omardev.blog.mappers.TagMapper;
 import com.omardev.blog.services.TagService;
@@ -24,15 +24,15 @@ public class TagController {
     private final TagMapper tagMapper;
 
     @GetMapping
-    public ResponseEntity<List<TagResponseDto>> getAllTags() {
+    public ResponseEntity<List<TagDto>> getAllTags() {
         List<Tag> tags = tagService.getAllTags();
-        List<TagResponseDto> tagDtos = tagMapper.toDtoList(tags);
+        List<TagDto> tagDtos = tagMapper.toDtoList(tags);
         return ResponseEntity.ok(tagDtos);
     }
 
 
     @PostMapping
-    public ResponseEntity<Set<TagResponseDto>> createTags(
+    public ResponseEntity<Set<TagDto>> createTags(
             @Valid @RequestBody CreateTagsRequest request
     ) {
         Set<Tag> tags = tagService.createTags(request);

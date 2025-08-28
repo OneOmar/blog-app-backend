@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Builder
 @AllArgsConstructor
-public class TagResponseDto {
+public class TagDto {
 
     private final UUID id;
     private final String name;

@@ -1,7 +1,7 @@
 package com.omardev.blog.mappers;
 
 import com.omardev.blog.domain.PostStatus;
-import com.omardev.blog.domain.dtos.TagResponseDto;
+import com.omardev.blog.domain.dtos.TagDto;
 import com.omardev.blog.domain.entities.Tag;
 import com.omardev.blog.domain.entities.Post;
 import org.mapstruct.*;
@@ -13,9 +13,9 @@ import java.util.Set;
 public interface TagMapper {
 
     @Mapping(target = "postCount", source = "posts", qualifiedByName = "calculatePostCount")
-    TagResponseDto toDto(Tag tag);
+    TagDto toDto(Tag tag);
 
-    List<TagResponseDto> toDtoList(List<Tag> tags);
+    List<TagDto> toDtoList(List<Tag> tags);
 
     @Named("calculatePostCount")
     default Integer calculatePostCount(Set<Post> posts) {

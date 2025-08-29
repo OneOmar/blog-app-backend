@@ -1,6 +1,6 @@
-package com.omardev.blog.domain.dtos;
+package com.omardev.blog.domain.dtos.post;
 
-import com.omardev.blog.domain.PostStatus;
+import com.omardev.blog.domain.enums.PostStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,10 +14,12 @@ import java.util.Set;
 import java.util.UUID;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class CreatePostRequest {
+@NoArgsConstructor
+@Builder
+public class UpdatePostRequest {
+    @NotNull(message = "Post ID is required")
+    private UUID id;
 
     @NotBlank(message = "Title is required")
     @Size(min = 3, max = 200, message = "Title must be between {min} and {max} characters")

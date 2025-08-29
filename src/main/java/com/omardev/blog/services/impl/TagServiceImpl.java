@@ -1,6 +1,6 @@
 package com.omardev.blog.services.impl;
 
-import com.omardev.blog.domain.dtos.CreateTagsRequest;
+import com.omardev.blog.domain.dtos.tag.CreateTagsRequest;
 import com.omardev.blog.domain.entities.Tag;
 import com.omardev.blog.repositories.TagRepository;
 import com.omardev.blog.services.TagService;

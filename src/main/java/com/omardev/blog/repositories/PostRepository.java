@@ -1,6 +1,6 @@
 package com.omardev.blog.repositories;
 
-import com.omardev.blog.domain.PostStatus;
+import com.omardev.blog.domain.enums.PostStatus;
 import com.omardev.blog.domain.entities.Category;
 import com.omardev.blog.domain.entities.Post;
 import com.omardev.blog.domain.entities.Tag;

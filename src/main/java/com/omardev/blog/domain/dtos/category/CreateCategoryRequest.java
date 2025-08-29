@@ -1,4 +1,4 @@
-package com.omardev.blog.domain.dtos;
+package com.omardev.blog.domain.dtos.category;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

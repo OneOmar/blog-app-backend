@@ -1,9 +1,9 @@
 package com.omardev.blog.controllers;
 
-import com.omardev.blog.domain.dtos.CreatePostRequest;
-import com.omardev.blog.domain.dtos.PartialUpdatePostRequest;
-import com.omardev.blog.domain.dtos.PostDto;
-import com.omardev.blog.domain.dtos.UpdatePostRequest;
+import com.omardev.blog.domain.dtos.post.CreatePostRequest;
+import com.omardev.blog.domain.dtos.post.PartialUpdatePostRequest;
+import com.omardev.blog.domain.dtos.post.PostDto;
+import com.omardev.blog.domain.dtos.post.UpdatePostRequest;
 import com.omardev.blog.domain.entities.Post;
 import com.omardev.blog.domain.entities.User;
 import com.omardev.blog.mappers.PostMapper;

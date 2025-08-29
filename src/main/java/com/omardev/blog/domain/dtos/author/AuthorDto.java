@@ -1,4 +1,4 @@
-package com.omardev.blog.domain.dtos;
+package com.omardev.blog.domain.dtos.author;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

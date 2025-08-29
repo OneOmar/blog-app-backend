@@ -1,8 +1,8 @@
 package com.omardev.blog.mappers;
 
-import com.omardev.blog.domain.PostStatus;
-import com.omardev.blog.domain.dtos.CategoryDto;
-import com.omardev.blog.domain.dtos.CreateCategoryRequest;
+import com.omardev.blog.domain.enums.PostStatus;
+import com.omardev.blog.domain.dtos.category.CategoryDto;
+import com.omardev.blog.domain.dtos.category.CreateCategoryRequest;
 import com.omardev.blog.domain.entities.Category;
 import com.omardev.blog.domain.entities.Post;
 import org.mapstruct.*;

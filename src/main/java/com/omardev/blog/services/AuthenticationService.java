@@ -1,7 +1,7 @@
 package com.omardev.blog.services;
 
-import com.omardev.blog.domain.dtos.AuthenticationResponse;
-import com.omardev.blog.domain.dtos.LoginRequest;
+import com.omardev.blog.domain.dtos.auth.AuthenticationResponse;
+import com.omardev.blog.domain.dtos.auth.LoginRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**

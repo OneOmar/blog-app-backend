@@ -1,6 +1,6 @@
 package com.omardev.blog.services;
 
-import com.omardev.blog.domain.dtos.CreateTagsRequest;
+import com.omardev.blog.domain.dtos.tag.CreateTagsRequest;
 import com.omardev.blog.domain.entities.Tag;
 
 import java.util.List;

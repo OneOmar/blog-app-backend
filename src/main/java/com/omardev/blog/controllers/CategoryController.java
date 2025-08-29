@@ -1,7 +1,7 @@
 package com.omardev.blog.controllers;
 
-import com.omardev.blog.domain.dtos.CategoryDto;
-import com.omardev.blog.domain.dtos.CreateCategoryRequest;
+import com.omardev.blog.domain.dtos.category.CategoryDto;
+import com.omardev.blog.domain.dtos.category.CreateCategoryRequest;
 import com.omardev.blog.domain.entities.Category;
 import com.omardev.blog.mappers.CategoryMapper;
 import com.omardev.blog.services.CategoryService;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/categories")

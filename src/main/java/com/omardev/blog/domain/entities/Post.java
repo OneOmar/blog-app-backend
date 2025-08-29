@@ -1,7 +1,7 @@
 package com.omardev.blog.domain.entities;
 
 
-import com.omardev.blog.domain.PostStatus;
+import com.omardev.blog.domain.enums.PostStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

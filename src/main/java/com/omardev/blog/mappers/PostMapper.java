@@ -1,6 +1,6 @@
 package com.omardev.blog.mappers;
 
-import com.omardev.blog.domain.dtos.PostDto;
+import com.omardev.blog.domain.dtos.post.PostDto;
 import com.omardev.blog.domain.entities.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,7 +1,7 @@
 package com.omardev.blog.controllers;
 
-import com.omardev.blog.domain.dtos.AuthenticationResponse;
-import com.omardev.blog.domain.dtos.LoginRequest;
+import com.omardev.blog.domain.dtos.auth.AuthenticationResponse;
+import com.omardev.blog.domain.dtos.auth.LoginRequest;
 import com.omardev.blog.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

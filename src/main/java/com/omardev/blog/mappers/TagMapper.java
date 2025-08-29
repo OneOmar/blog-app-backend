@@ -1,7 +1,7 @@
 package com.omardev.blog.mappers;
 
-import com.omardev.blog.domain.PostStatus;
-import com.omardev.blog.domain.dtos.TagDto;
+import com.omardev.blog.domain.enums.PostStatus;
+import com.omardev.blog.domain.dtos.tag.TagDto;
 import com.omardev.blog.domain.entities.Tag;
 import com.omardev.blog.domain.entities.Post;
 import org.mapstruct.*;

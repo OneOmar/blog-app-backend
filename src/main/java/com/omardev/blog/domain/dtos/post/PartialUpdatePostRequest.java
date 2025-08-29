@@ -1,6 +1,6 @@
-package com.omardev.blog.domain.dtos;
+package com.omardev.blog.domain.dtos.post;
 
-import com.omardev.blog.domain.PostStatus;
+import com.omardev.blog.domain.enums.PostStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

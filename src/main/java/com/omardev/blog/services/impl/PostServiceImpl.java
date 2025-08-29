@@ -1,9 +1,9 @@
 package com.omardev.blog.services.impl;
 
-import com.omardev.blog.domain.PostStatus;
-import com.omardev.blog.domain.dtos.CreatePostRequest;
-import com.omardev.blog.domain.dtos.PartialUpdatePostRequest;
-import com.omardev.blog.domain.dtos.UpdatePostRequest;
+import com.omardev.blog.domain.enums.PostStatus;
+import com.omardev.blog.domain.dtos.post.CreatePostRequest;
+import com.omardev.blog.domain.dtos.post.PartialUpdatePostRequest;
+import com.omardev.blog.domain.dtos.post.UpdatePostRequest;
 import com.omardev.blog.domain.entities.Category;
 import com.omardev.blog.domain.entities.Post;
 import com.omardev.blog.domain.entities.Tag;

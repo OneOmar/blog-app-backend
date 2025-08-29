@@ -1,7 +1,7 @@
 package com.omardev.blog.controllers;
 
-import com.omardev.blog.domain.dtos.CreateTagsRequest;
-import com.omardev.blog.domain.dtos.TagDto;
+import com.omardev.blog.domain.dtos.tag.CreateTagsRequest;
+import com.omardev.blog.domain.dtos.tag.TagDto;
 import com.omardev.blog.domain.entities.Tag;
 import com.omardev.blog.mappers.TagMapper;
 import com.omardev.blog.services.TagService;

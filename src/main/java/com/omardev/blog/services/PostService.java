@@ -2,6 +2,7 @@ package com.omardev.blog.services;
 
 
 import com.omardev.blog.domain.dtos.CreatePostRequest;
+import com.omardev.blog.domain.dtos.PartialUpdatePostRequest;
 import com.omardev.blog.domain.dtos.UpdatePostRequest;
 import com.omardev.blog.domain.entities.Post;
 import com.omardev.blog.domain.entities.User;
@@ -18,5 +19,7 @@ public interface PostService {
     Post createPost(User author, CreatePostRequest request);
 
     Post updatePost(User author, UpdatePostRequest request);
+
+    Post partialUpdatePost(User author, UUID postId, PartialUpdatePostRequest request);
 
 }

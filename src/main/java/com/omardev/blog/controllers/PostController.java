@@ -1,6 +1,7 @@
 package com.omardev.blog.controllers;
 
 import com.omardev.blog.domain.dtos.CreatePostRequest;
+import com.omardev.blog.domain.dtos.PartialUpdatePostRequest;
 import com.omardev.blog.domain.dtos.PostDto;
 import com.omardev.blog.domain.dtos.UpdatePostRequest;
 import com.omardev.blog.domain.entities.Post;
@@ -90,4 +91,24 @@ public class PostController {
         // Return the updated post with HTTP 200
         return ResponseEntity.ok(postDto);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<PostDto> partialUpdatePost(
+            @RequestAttribute UUID userId,
+            @PathVariable UUID id,
+            @RequestBody PartialUpdatePostRequest request) {
+
+        // Fetch logged-in user
+        User loggedInUser = userService.getUserById(userId);
+
+        // Perform partial update
+        Post updatedPost = postService.partialUpdatePost(loggedInUser, id, request);
+
+        // Convert to DTO
+        PostDto postDto = postMapper.toDto(updatedPost);
+
+        return ResponseEntity.ok(postDto);
+    }
+
+
 }

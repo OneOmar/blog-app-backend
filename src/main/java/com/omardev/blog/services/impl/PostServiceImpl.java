@@ -2,6 +2,7 @@ package com.omardev.blog.services.impl;
 
 import com.omardev.blog.domain.PostStatus;
 import com.omardev.blog.domain.dtos.CreatePostRequest;
+import com.omardev.blog.domain.dtos.PartialUpdatePostRequest;
 import com.omardev.blog.domain.dtos.UpdatePostRequest;
 import com.omardev.blog.domain.entities.Category;
 import com.omardev.blog.domain.entities.Post;
@@ -119,6 +120,38 @@ public class PostServiceImpl implements PostService {
         post.setReadingTime(calculateReadingTime(post.getContent()));
 
         // updatedAt will be updated automatically by @PreUpdate
+        return postRepository.save(post);
+    }
+
+    @Override
+    @Transactional
+    public Post partialUpdatePost(User author, UUID postId, PartialUpdatePostRequest request) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + postId));
+
+        // Authorization check
+        if (!post.getAuthor().getId().equals(author.getId())) {
+            throw new AccessDeniedException("You are not allowed to update this post");
+        }
+
+        // Update fields only if present
+        if (request.getTitle() != null) post.setTitle(request.getTitle());
+        if (request.getContent() != null) post.setContent(request.getContent());
+        if (request.getStatus() != null) post.setStatus(request.getStatus());
+        if (request.getCategoryId() != null) {
+            Category category = categoryService.getCategoryById(request.getCategoryId());
+            post.setCategory(category);
+        }
+        if (request.getTagIds() != null) {
+            Set<Tag> tags = tagService.getTagsByIds(request.getTagIds());
+            post.setTags(tags);
+        }
+
+        // Recalculate reading time if content updated
+        if (request.getContent() != null) {
+            post.setReadingTime(calculateReadingTime(post.getContent()));
+        }
+
         return postRepository.save(post);
     }
 

@@ -90,7 +90,8 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public Post updatePost(User author, UpdatePostRequest request) {
-        // Load the existing post (404 if not found)
+
+        // Fetch the existing post by ID
         Post post = postRepository.findById(request.getId())
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Post not found with id: " + request.getId()
@@ -101,13 +102,10 @@ public class PostServiceImpl implements PostService {
             throw new AccessDeniedException("You are not allowed to update this post");
         }
 
-        // Update scalar fields
+        // Update post fields
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
         post.setStatus(request.getStatus());
-
-        // Recalculate reading time
-        post.setReadingTime(calculateReadingTime(request.getContent()));
 
         // Update category
         Category category = categoryService.getCategoryById(request.getCategoryId());
@@ -117,9 +115,13 @@ public class PostServiceImpl implements PostService {
         Set<Tag> tags = tagService.getTagsByIds(request.getTagIds());
         post.setTags(tags);
 
-        // JPA @PreUpdate will handle updatedAt
+        // Recalculate reading time if needed
+        post.setReadingTime(calculateReadingTime(post.getContent()));
+
+        // updatedAt will be updated automatically by @PreUpdate
         return postRepository.save(post);
     }
+
 
     // Helper method to estimate reading time
     private int calculateReadingTime(String content) {

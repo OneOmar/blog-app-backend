@@ -2,6 +2,7 @@ package com.omardev.blog.controllers;
 
 import com.omardev.blog.domain.dtos.CreatePostRequest;
 import com.omardev.blog.domain.dtos.PostDto;
+import com.omardev.blog.domain.dtos.UpdatePostRequest;
 import com.omardev.blog.domain.entities.Post;
 import com.omardev.blog.domain.entities.User;
 import com.omardev.blog.mappers.PostMapper;
@@ -72,5 +73,21 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postDto);
     }
 
+    @PutMapping
+    public ResponseEntity<PostDto> updatePost(
+            @RequestAttribute UUID userId,
+            @RequestBody @Valid UpdatePostRequest request) {
 
+        // Fetch the logged-in user
+        User loggedInUser = userService.getUserById(userId);
+
+        // Update the post using the service
+        Post updatedPost = postService.updatePost(loggedInUser, request);
+
+        // Convert the entity to DTO
+        PostDto postDto = postMapper.toDto(updatedPost);
+
+        // Return the updated post with HTTP 200
+        return ResponseEntity.ok(postDto);
+    }
 }

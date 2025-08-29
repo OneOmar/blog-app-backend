@@ -163,4 +163,18 @@ public class PostServiceImpl implements PostService {
         return Math.max(1, words / wordsPerMinute);
     }
 
+    @Override
+    @Transactional
+    public void deletePost(User author, UUID postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + postId));
+
+        // Authorization: only the author can delete their post
+        if (!post.getAuthor().getId().equals(author.getId())) {
+            throw new AccessDeniedException("You are not allowed to delete this post");
+        }
+
+        postRepository.delete(post);
+    }
+
 }

@@ -110,5 +110,19 @@ public class PostController {
         return ResponseEntity.ok(postDto);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(
+            @RequestAttribute UUID userId,
+            @PathVariable UUID id) {
+
+        // Fetch the logged-in user
+        User loggedInUser = userService.getUserById(userId);
+
+        // Delete the post using service
+        postService.deletePost(loggedInUser, id);
+
+        // Return 204 No Content
+        return ResponseEntity.noContent().build();
+    }
 
 }

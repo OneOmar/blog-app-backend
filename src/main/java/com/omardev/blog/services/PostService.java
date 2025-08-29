@@ -22,4 +22,6 @@ public interface PostService {
 
     Post partialUpdatePost(User author, UUID postId, PartialUpdatePostRequest request);
 
+    void deletePost(User author, UUID postId);
+
 }

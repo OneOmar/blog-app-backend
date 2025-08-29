@@ -1,6 +1,7 @@
 package com.omardev.blog.services.impl;
 
 import com.omardev.blog.domain.PostStatus;
+import com.omardev.blog.domain.dtos.CreatePostRequest;
 import com.omardev.blog.domain.entities.Category;
 import com.omardev.blog.domain.entities.Post;
 import com.omardev.blog.domain.entities.Tag;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -58,6 +60,34 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getDraftPosts(User user) {
         return postRepository.findAllByAuthorAndStatus(user, PostStatus.DRAFT);
+    }
+
+    @Override
+    @Transactional
+    public Post createPost(User author, CreatePostRequest request) {
+
+        Post post = new Post();
+        post.setTitle(request.getTitle());
+        post.setContent(request.getContent());
+        post.setAuthor(author);
+        post.setStatus(request.getStatus());
+        post.setReadingTime(calculateReadingTime(request.getContent()));
+
+        // Set category
+        Category category = categoryService.getCategoryById(request.getCategoryId());
+        post.setCategory(category);
+
+        // Set tags
+        Set<Tag> tags = tagService.getTagsByIds(request.getTagIds());
+        post.setTags(tags);
+
+        return postRepository.save(post);
+    }
+
+    // Helper method to calculate estimated reading time
+    private int calculateReadingTime(String content) {
+        int words = content.split("\\s+").length;
+        return Math.max(1, words / 200); // simple estimation: 200 words per minute
     }
 
 }

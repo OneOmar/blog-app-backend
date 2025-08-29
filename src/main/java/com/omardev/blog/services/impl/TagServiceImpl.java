@@ -71,6 +71,15 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional(readOnly = true)
+    public Set<Tag> getTagsByIds(Set<UUID> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return new HashSet<>();
+        }
+        return new HashSet<>(tagRepository.findAllById(ids));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Tag getTagById(UUID id) {
         return tagRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(

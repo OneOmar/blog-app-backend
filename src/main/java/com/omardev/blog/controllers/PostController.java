@@ -1,12 +1,15 @@
 package com.omardev.blog.controllers;
 
+import com.omardev.blog.domain.dtos.CreatePostRequest;
 import com.omardev.blog.domain.dtos.PostDto;
 import com.omardev.blog.domain.entities.Post;
 import com.omardev.blog.domain.entities.User;
 import com.omardev.blog.mappers.PostMapper;
 import com.omardev.blog.services.PostService;
 import com.omardev.blog.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,5 +53,24 @@ public class PostController {
 
         return ResponseEntity.ok(postDtos);
     }
+
+    @PostMapping
+    public ResponseEntity<PostDto> createPost(
+            @RequestAttribute UUID userId,
+            @RequestBody @Valid CreatePostRequest request) {
+
+        // Fetch the logged-in user
+        User loggedInUser = userService.getUserById(userId);
+
+        // Create the post using the service
+        Post post = postService.createPost(loggedInUser, request);
+
+        // Convert the entity to DTO
+        PostDto postDto = postMapper.toDto(post);
+
+        // Return the created post with HTTP 201
+        return ResponseEntity.status(HttpStatus.CREATED).body(postDto);
+    }
+
 
 }

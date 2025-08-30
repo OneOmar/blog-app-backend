@@ -61,6 +61,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // Add userId to request attributes for controller access
+        if (userDetails instanceof BlogUserDetails blogUser) {
+            request.setAttribute("userId", blogUser.getId());
+        }
     }
 }
 
